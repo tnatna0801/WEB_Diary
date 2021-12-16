@@ -8,7 +8,7 @@ Spring을 사용해 일기장 만들어보기
 * 회원가입
 * 로그인
 * 일기 목록(게시판)
-* 일기 쓰기(텍스트/사진 삽입)
+* 일기 쓰기(텍스트/사진 삽입-사진 위치는 고정)
   * 날짜/날씨/기분 입력
   * 배경 색상 설정
   * 글자 크기 11pt 고정
@@ -22,5 +22,6 @@ Spring을 사용해 일기장 만들어보기
 
 
 ### DB
-![image](https://user-images.githubusercontent.com/48270067/146376019-d02d9d82-3f17-4f59-857b-7fe825ac0fbf.png)
+![image](https://user-images.githubusercontent.com/48270067/146376936-eeddeb41-a564-4fd4-b19d-fe593f11c515.png)
+
 
