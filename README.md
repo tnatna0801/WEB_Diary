@@ -22,6 +22,6 @@ Spring을 사용해 일기장 만들어보기
 
 
 ### DB
-![image](https://user-images.githubusercontent.com/48270067/146376936-eeddeb41-a564-4fd4-b19d-fe593f11c515.png)
 
+![image](https://user-images.githubusercontent.com/48270067/147201101-0ec0c00b-dea7-49af-8386-582ceacda823.png)
 
