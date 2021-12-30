@@ -105,8 +105,7 @@ DB에 관계없이 자유롭게 사용할 수 없다.
 1. 특정 DB에만 있는 비표준 SQL들을 사용한다면, 다른 DB로 갈아끼울 때 SQL을 한바탕 뒤집어 함
 2. SQLException 하나로 모든 예외가 압축되기 때문에 e.gerErrorCode() 등으로 에러 코드를 확인해야만 정확한 에러를 확인할 수 있다. 그런데 각 EB는 서로 다른 에러 코드를 사용한다.
 
-=> 2번 문제를 해결하기 위해서 스프링의 JdbcTemplate에서는 최종 예외로 DataAccessException을 두고, 이 예외와 실제 DB단에서 발생하는 예외들 사이에 DataAccessException 계층 구조를 
-만들었다. 
+=> 2번 문제를 해결하기 위해서 스프링의 JdbcTemplate에서는 최종 예외로 DataAccessException을 두고, 다양한 데이터 액세스 기술을 사용할 때 발생하는 예외들을 추상화해서 DataAccessException 계층구조 안에 정리해놓았다.
 
 
 DataAccessException 계층구조는 의미가 같은 예외라면 데이터 엑세스 기술의 종류와 상관없이 일관된 에러가 발생하도록 만들어준다.
