@@ -13,23 +13,25 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor //기본 생성자 자동 추가?
 @Table(name = "users")
-@Builder
 public class Users {
 
     @Id
-    @GeneratedValue
-    private String user_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //데이터베이스에 기본키 생성을 위임
+    private Long id;
 
     @NotNull
     private String email;
 
     @NotNull
+    private String name;
+
+    @NotNull
     private String password;
 
     @Builder
-    public Users(String user_id, String email, String password) {
-        this.user_id = user_id;
+    public Users(String email, String name, String password) {
         this.email = email;
+        this.name = name;
         this.password = password;
     }
 

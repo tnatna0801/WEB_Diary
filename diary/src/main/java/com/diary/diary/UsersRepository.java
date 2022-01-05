@@ -10,4 +10,5 @@ import javax.persistence.EntityManager;
 @Repository
 public interface UsersRepository extends JpaRepository<Users, String> {
 
+
 }

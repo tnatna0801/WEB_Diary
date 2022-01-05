@@ -12,16 +12,23 @@ import java.util.List;
 
 @Controller
 public class UsersController {
-    @Autowired
-    private UsersRepository repo;
+
+    private final UsersRepository repo;
+
+    public UsersController(UsersRepository repo) {
+        this.repo = repo;
+    }
 
     /**
      * 사용자 조회
-     * @return
+     * @return users.html 회원 가입 페이지
      */
     @GetMapping("/users")
-    public List<Users> findAllUsers() {
-        return repo.findAll();
+    public String findAllUsers() {
+
+        Users user = new Users();
+        repo.save(user);
+        return "users";
     }
 
 //    @PostMapping("Users")
