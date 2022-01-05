@@ -13,7 +13,7 @@
 #### 1. Error
 시스템에 비정상적인 상황이 발생했을 때 사용된다. 그래서 주로 자바 VM에서 발생시키는 것이고 애플리케이션에서는 이런 에러에 대한 처리는 신경 쓰지 않는다. ( 대응 방법이 없기 때문 )
 
-==>; 그럼 어떻게 대응해야 할까?
+==> 그럼 어떻게 대응해야 할까?
 
 Error와 예외를 구분해야 할 필요가 있다. 
 
@@ -24,7 +24,7 @@ Error와 예외를 구분해야 할 필요가 있다.
 
 Exception 클래스는 체크 예외와 언체크 예외(Unchecked exception)로 구분된다. 
 
-* 체크 에외
+* 체크 외
 
 복구될 가능성이 있는 문제 상황을 체크 예외라고 한다. catch/throw가 필요하다.
 
@@ -96,14 +96,14 @@ JdbcTemplate을 적용하는 중에 throws SQLException 선언이 왜 사라졌�
 
 JdbcTemplate 템플릿/콜백 안에서 발생하는 모든 SQLException이 RuntimeException을 상속한 DataAccessException으로 wrapping 되어있기 때문이다.
 * 대부분 복구가 불가능한 예외인 SQLException에 대해 애플리케이션 레벨에서 신경 쓰지 않도록 해줌
-* SQLException에 담기 힘든 상세한 예외정보를 의미 있고 일관서ㅓㅇ 있는 예외로 전환해서 추상화해주려는 용도로 쓰이기도 함
+* SQLException에 담기 힘든 상세한 예외정보를 의미 있고 일관성 있는 예외로 전환해서 추상화해주려는 용도로 쓰이기도 함
 
 #### JDBC의 한계
 
 DB에 관계없이 자유롭게 사용할 수 없다. 
 
 1. 특정 DB에만 있는 비표준 SQL들을 사용한다면, 다른 DB로 갈아끼울 때 SQL을 한바탕 뒤집어 함
-2. SQLException 하나로 모든 예외가 압축되기 때문에 e.gerErrorCode() 등으로 에러 코드를 확인해야만 정확한 에러를 확인할 수 있다. 그런데 각 EB는 서로 다른 에러 코드를 사용한다.
+2. SQLException 하나로 모든 예외가 압축되기 때문에 e.gerErrorCode() 등으로 에러 코드를 확인해야만 정확한 에러를 확인할 수 있다. 그런데 각 DB는 서로 다른 에러 코드를 사용한다.
 
 => 2번 문제를 해결하기 위해서 스프링의 JdbcTemplate에서는 최종 예외로 DataAccessException을 두고, 다양한 데이터 액세스 기술을 사용할 때 발생하는 예외들을 추상화해서 DataAccessException 계층구조 안에 정리해놓았다.
 
