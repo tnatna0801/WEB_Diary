@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+<div class="title">
+    <h1>Diary</h1>
+</div>
+<div class="content">
+    <form method="post" th:action="@{/join}">
+        <div>
+            <input type="text" name="email" class="form-control" placeholder="이메일" autocomplete="off" required/>
+        </div>
+        <div>
+            <input type="text" name="name" class="form-control" placeholder="이름" autocomplete="off" required/>
+        </div>
+        <div>
+            <input type="password" name="password" class="form-control" placeholder="비밀번호" autocomplete="off" required/>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-dark btn-large form-control">Join</button>
+        </div>
+        <div>
+            <button type="button" class="btn btn-secondary btn-large form-control" id="btn_loginForm">Back</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
