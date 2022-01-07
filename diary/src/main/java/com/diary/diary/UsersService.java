@@ -3,6 +3,8 @@ package com.diary.diary;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor //생성자를 통한 의존성 주입을 자동으로 해준다 ==> final 키워드가 붙응ㄴ 필드를 찾아서
 public class UsersService {
@@ -17,9 +19,17 @@ public class UsersService {
      */
    public String join(UserValueDTO valueDTO) {
 
+       //email 중복 검사
+       
+       //DB에 저장
        userrepo.save(valueDTO.toEntity());
        return valueDTO.getName();
 
+   }
+
+
+   public List<Users> selectAll(){
+       return userrepo.findAll();
    }
 
 }
