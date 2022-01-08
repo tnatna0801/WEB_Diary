@@ -1,5 +1,8 @@
-package com.diary.diary;
+package com.diary.diary.Service;
 
+import com.diary.diary.Entity.Users;
+import com.diary.diary.Repository.UsersRepository;
+import com.diary.diary.DTO.UserValueDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

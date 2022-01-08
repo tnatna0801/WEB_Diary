@@ -1,5 +1,6 @@
-package com.diary.diary;
+package com.diary.diary.DTO;
 
+import com.diary.diary.Entity.Users;
 import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Getter;

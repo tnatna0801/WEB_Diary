@@ -1,4 +1,4 @@
-package com.diary.diary;
+package com.diary.diary.Entity;
 
 
 import com.sun.istack.NotNull;

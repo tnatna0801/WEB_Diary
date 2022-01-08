@@ -1,7 +1,10 @@
-package com.diary.diary;
+package com.diary.diary.Controller;
 
 
 
+import com.diary.diary.DTO.UserValueDTO;
+import com.diary.diary.Repository.UsersRepository;
+import com.diary.diary.Service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 public class UsersController {
