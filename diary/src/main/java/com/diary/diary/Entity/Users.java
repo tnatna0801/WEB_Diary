@@ -20,12 +20,15 @@ public class Users {
     private Long id;
 
     @NotNull
+    @Column(length = 40)
     private String email;
 
     @NotNull
+    @Column(length = 15)
     private String name;
 
     @NotNull
+    @Column(length = 20)
     private String password;
 
     @Builder
