@@ -2,6 +2,7 @@ package com.diary.diary.DTO;
 
 import com.diary.diary.Entity.Users;
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,5 +35,4 @@ public class UserValueDTO {
                 .password(password)
                 .build();
     }
-
 }

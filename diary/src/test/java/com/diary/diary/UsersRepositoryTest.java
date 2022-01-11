@@ -32,4 +32,18 @@ public class UsersRepositoryTest {
         Assertions.assertEquals(user.getName(), saveduser.getName());
 
     }
+
+    @Test
+    public void duplicateEmail(){
+        String name="김철수";
+        String email="soo@gmail.com";
+        String password="asdf123";
+
+        Users user = new Users(email, name, password);
+
+        Users savedUser = usersrepo.save(user);
+
+        Assertions.assertTrue(usersrepo.existsByEmail(savedUser.getEmail()));
+        System.out.println(usersrepo.existsByEmail(savedUser.getEmail()));
+    }
 }
