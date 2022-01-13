@@ -30,6 +30,12 @@ public class UsersService {
        }
    }
 
+   public boolean checkEmail(String email){
+
+       //email 중복 검사
+       return userrepo.existsByEmail(email);
+
+   }
 
    public List<Users> selectAll(){
        return userrepo.findAll();
