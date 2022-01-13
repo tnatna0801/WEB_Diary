@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor //생성자를 통한 의존성 주입을 자동으로 해준다 ==> final 키워드가 붙응ㄴ 필드를 찾아서
+@RequiredArgsConstructor //생성자를 통한 의존성 주입을 자동으로 해준다 ==> final 키워드가 붙은 필드를 찾아서
 public class UsersService {
 
    //final로 하면 컴파일 시점에 값이 들어가는지 확인할 수 있어서 좋다

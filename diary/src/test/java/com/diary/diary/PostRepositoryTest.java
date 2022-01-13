@@ -28,6 +28,7 @@ public class PostRepositoryTest {
 
     public void deletePost(){
 
+        //postRepo.delete();
     }
 
     public void editPost(){

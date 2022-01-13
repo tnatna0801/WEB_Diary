@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>임시일기작성폼</title>
+</head>
+<body>
+<div class="title">
+    <h1>Diary</h1>
+</div>
+<div class="content">
+    <form method="POST" th:action="@{/writePost}" >
+        <div>
+            <input type="text" name="title" class="form-control" placeholder="제목" autocomplete="off" required/>
+        </div>
+
+        <div>
+            <input type="text" name="content" class="form-control" placeholder="내용" autocomplete="off" required/>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-dark btn-large form-control">저장</button>
+        </div>
+        <div>
+            <button type="button" class="btn btn-secondary btn-large form-control" id="btn_loginForm">Back</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
