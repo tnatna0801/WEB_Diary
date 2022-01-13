@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class UserValueDTO {
@@ -34,6 +36,30 @@ public class UserValueDTO {
                 .name(name)
                 .password(password)
                 .build();
+    }
+
+    @Getter
+    @Setter
+    public static class UserResponseDto{
+
+        private long id;
+
+        private String email;
+
+        private String name;
+
+        private String password;
+
+
+        public UserResponseDto(Users user){
+            this.id = user.getId();
+            this.email = user.getEmail();
+            this.name = user.getName();
+            this.password = user.getPassword();
+        }
+
+
+
     }
 
 }

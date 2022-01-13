@@ -6,6 +6,7 @@ import com.diary.diary.DTO.UserValueDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,8 +38,12 @@ public class UsersService {
 
    }
 
-   public List<Users> selectAll(){
-       return userrepo.findAll();
+   public List<UserValueDTO.UserResponseDto> selectAll(){
+       List<UserValueDTO.UserResponseDto> list = new ArrayList<>();
+       for (Users user: userrepo.findAll()) {
+           list.add(new UserValueDTO.UserResponseDto(user));
+       }
+       return list;
    }
 
 }
