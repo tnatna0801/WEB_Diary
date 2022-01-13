@@ -67,10 +67,13 @@ public class PostValueDTO {
 
     }
 
-//    //
-//    public Post postResponseDto(){
-//        PostRepository postRepo;
-//        return postRepo.getById();
-//    }
+    @Getter
+    public static class PostResponseDto{
+        private final long id;
+
+        public PostResponseDto(long id){
+            this.id = id;
+        }
+    }
 
 }

@@ -17,14 +17,14 @@ public class PostService {
     }
 
     //일기 생성
-    public void savePost(PostValueDTO.PostRequestDto PostRequest){
-        postRepo.save(PostRequest.toEntity());
+    public void savePost(PostValueDTO.PostRequestDto request){
+        postRepo.save(request.toEntity());
     }
 
     //일기 삭제
-    public void deletePost(PostValueDTO.PostRequestDto PostRequest){
+    public void deletePost(PostValueDTO.PostResponseDto response){
         //ID를 어떻게 가져오지?? response?
-        //postRepo.delete(postRepo.findById());
+        postRepo.delete(postRepo.findById(response.getId()));
     }
 
     //일기 리스트 조회

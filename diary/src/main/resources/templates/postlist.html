@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>임시 일기 목록</title>
+</head>
+<body>
+<div class="title">
+    <h1>일기 목록</h1>
+</div>
+<div class="content">
+    <div class="row">
+        <div class = "table">
+            <table>
+                <thead>
+                <tr class="text-center">
+                    <th width="10%">일기번호</th>
+                    <th width="10%">제목</th>
+                    <th width="50%">내용</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-center" th:object="${post}" th:each="post: ${postList}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{title}"></td>
+                    <td th:text="*{content}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
