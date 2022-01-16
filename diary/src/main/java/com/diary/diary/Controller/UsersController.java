@@ -19,7 +19,7 @@ public class UsersController {
     private final UsersService usersService;
 
     @Autowired
-    public UsersController(UsersRepository repo, UsersService usersService){
+    public UsersController(UsersService usersService){
         this.usersService = usersService;
     }
 
@@ -36,7 +36,7 @@ public class UsersController {
     
     
     /**
-     * 
+     * 회원 가입 뷰
      * @return join.html 회원가입 페이지
      */
     @GetMapping("/join")
@@ -47,18 +47,23 @@ public class UsersController {
 
 
     /**
-     * 회원가입
+     * 입력받은 정보로 회원 가입 수행
      * @param valueDTO user 값을 담을 객체
      * @return join.html 회원가입 완료 페이지 혹은 리다이렉트
      */
     @PostMapping("/join")
-    public String userJoin(@Validated UserValueDTO valueDTO){
+    public String userJoin(@Validated UserValueDTO.UserRequestDto valueDTO){
 
         usersService.join(valueDTO);
 
         return "redirect:/join";
     }
 
+    /**
+     * 중복 이메일 확인
+     * @param email 가입하려는 이메일
+     * @return 이메일 중복 여부를 반환
+     */
     @PostMapping("/check")
     @JsonProperty
     @ResponseBody
@@ -66,6 +71,4 @@ public class UsersController {
 
         return usersService.checkEmail(email);
     }
-
-
 }

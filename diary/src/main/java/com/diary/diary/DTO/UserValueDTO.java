@@ -13,30 +13,36 @@ import java.util.List;
 @Setter
 public class UserValueDTO {
 
-    @NotNull
-    private String email;
+    @Getter
+    @Setter
+    public static class UserRequestDto{
 
-    @NotNull
-    private String name;
+        @NotNull
+        private String email;
 
-    @NotNull
-    private String password;
+        @NotNull
+        private String name;
 
-    @Builder //생성자
-    public UserValueDTO(String email, String name, String password){
-        this.email = email;
-        this.name = name;
-        this.password = password;
+        @NotNull
+        private String password;
+
+        @Builder //생성자
+        public UserRequestDto(String email, String name, String password){
+            this.email = email;
+            this.name = name;
+            this.password = password;
+        }
+
+        //db에 삽입할 entity 객체를 만들어 리턴해줌
+        public Users toEntity() {
+            return Users.builder()
+                    .email(email)
+                    .name(name)
+                    .password(password)
+                    .build();
+        }
     }
 
-    //db에 삽입할 entity 객체를 만들어 리턴해줌
-    public Users toEntity() {
-        return Users.builder()
-                .email(email)
-                .name(name)
-                .password(password)
-                .build();
-    }
 
     @Getter
     @Setter
@@ -57,9 +63,5 @@ public class UserValueDTO {
             this.name = user.getName();
             this.password = user.getPassword();
         }
-
-
-
     }
-
 }

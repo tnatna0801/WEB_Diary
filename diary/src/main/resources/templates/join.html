@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
-    <script src = "/js/scripts.js"></script>
 </head>
 <body>
+<!--jQuery가 제대로 실행되지 않아 발생하는 오류해결을 위해 명시적으로 jQuery를 로드하는 코드를 삽입했다.-->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
 <div class="title">
     <h1>Diary</h1>
 </div>
 <div class="content">
-    <form method="POST" th:action="@{/join}" th:objects="${valueDTO}" >
+    <form method="POST" th:action="@{/join}">
         <div>
-            <input type="email" name="email" class="form-control" placeholder="이메일" autocomplete="off" required/>
-        </div>
-        <div>
-            <button type="button" class="btn btn-secondary btn-large form-control" id="btn_delete">중복체ㅡㅋ</button>
+            <input type="email" name="email" id="email" class="form-control" placeholder="이메일" autocomplete="off" required/>
+            <button type="button" class="btn btn-secondary btn-large form-control" id="btn_checkemail"
+                    onclick="checkEmail();">중복체크
+            </button>
         </div>
         <div>
             <input type="text" name="name" class="form-control" placeholder="이름" autocomplete="off" required/>
@@ -32,6 +32,32 @@
             <button type="button" class="btn btn-secondary btn-large form-control" id="btn_loginForm">Back</button>
         </div>
     </form>
+    <!-- Uncaught ReferenceError: $ is not defined-->
+    <script>
+    function checkEmail() {
+        let email = document.getElementById("email");
+
+        $.ajax({
+            type: 'POST',
+            url: '/check',
+            data: {
+                email: email,
+            },
+            dataType: 'json',
+            success: function (result) {
+                if(result.body){
+                    Alert("사용할 수 있는 이메일입니다.");
+                }
+                else{
+                    Alert("사용할 수 없는 이메일입니다.");
+                }
+            },
+            error: function () {
+                Alert("서버에서 에러 발생");
+            },
+        });
+    }
+</script>
 </div>
 </body>
 </html>

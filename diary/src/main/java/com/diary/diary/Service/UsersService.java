@@ -20,10 +20,10 @@ public class UsersService {
      * 회원가입
      * @param valueDTO 사용자 정보
      */
-   public void join(UserValueDTO valueDTO) {
+   public void join(UserValueDTO.UserRequestDto valueDTO) {
 
        //email 중복 검사
-       if(!userrepo.existsByEmail(valueDTO.getEmail())){
+       if(checkEmail(valueDTO.getEmail())){
 
            //DB에 저장
            userrepo.save(valueDTO.toEntity());
@@ -31,6 +31,11 @@ public class UsersService {
        }
    }
 
+    /**
+     * 가입하려는 이메일의 중복 여부를 확인 하는 메소드
+     * @param email 가입하려는 회원의 이메일
+     * @return 이메일 존재 여부를 boolean으로 반환한다.
+     */
    public boolean checkEmail(String email){
 
        //email 중복 검사
@@ -38,6 +43,11 @@ public class UsersService {
 
    }
 
+
+    /**
+     * 회원 조회 메소드
+     * @return 회원 정보를 가진 UserResponseDto 객체 list 반환
+     */
    public List<UserValueDTO.UserResponseDto> selectAll(){
        List<UserValueDTO.UserResponseDto> list = new ArrayList<>();
        for (Users user: userrepo.findAll()) {
