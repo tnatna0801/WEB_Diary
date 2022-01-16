@@ -48,10 +48,7 @@ public class PostRepositoryTest {
         long id = savedPost.getId();
 
         postRepo.delete(savedPost);
-
-        System.out.println(postRepo.findById(id));
         Assertions.assertNull(postRepo.findById(id));
-
     }
 
 
