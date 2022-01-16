@@ -27,4 +27,20 @@ let email = $("#email").val()
   *  브라우저에서 JavaScript 파일을 실행해야 한다는 글을 보았다. 
   *  alert였다...
 
+
+#### Test
+
+**PostServiceTest에서 post를 저장, 삭제하는 test 수행**
+
+```java
+
+Post savedPost = service.savePost(requestDto);
+
+```
+
+* NullPointerException 오류가 발생
+ * 찾아보니 @Autowired 한 class가 null로 나와서 문제가 생긴 것 같다(????)
+ * 아직 해결 못함
+
+
 ## Step 7
