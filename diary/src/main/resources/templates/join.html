@@ -7,7 +7,7 @@
 </head>
 <body>
 <!--jQuery가 제대로 실행되지 않아 발생하는 오류해결을 위해 명시적으로 jQuery를 로드하는 코드를 삽입했다.-->
-<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div class="title">
     <h1>Diary</h1>
 </div>
@@ -32,11 +32,11 @@
             <button type="button" class="btn btn-secondary btn-large form-control" id="btn_loginForm">Back</button>
         </div>
     </form>
-    <!-- Uncaught ReferenceError: $ is not defined-->
-    <script>
+</div>
+<!-- Uncaught ReferenceError: $ is not defined-->
+<script>
     function checkEmail() {
-        let email = document.getElementById("email");
-
+        let email = $("#email").val()
         $.ajax({
             type: 'POST',
             url: '/check',
@@ -45,19 +45,20 @@
             },
             dataType: 'json',
             success: function (result) {
-                if(result.body){
-                    Alert("사용할 수 있는 이메일입니다.");
+                if(!result){
+                    alert("사용할 수 있는 이메일입니다.");
                 }
                 else{
-                    Alert("사용할 수 없는 이메일입니다.");
+                    alert("사용할 수 없는 이메일입니다.");
+                    $("input[name='email']").val("");
+                    $("input[name='email']").focus();
                 }
             },
             error: function () {
-                Alert("서버에서 에러 발생");
+                alert("서버에서 에러 발생");
             },
         });
     }
 </script>
-</div>
 </body>
 </html>
