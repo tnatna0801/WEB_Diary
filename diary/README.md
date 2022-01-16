@@ -39,8 +39,8 @@ Post savedPost = service.savePost(requestDto);
 ```
 
 * NullPointerException 오류가 발생
- * 찾아보니 @Autowired 한 class가 null로 나와서 문제가 생긴 것 같다(????)
- * 아직 해결 못함
+ * 찾아보니 @Autowired 한 class가 null로 나와서 문제가 생긴 것 같다. 의존성 주입의 문제
+ * PostServiceTest에 @SpringBootTest 안써서 생긴 문제였다. (해결) 
 
 
 ## Step 7
