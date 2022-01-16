@@ -65,11 +65,4 @@ public class Post {
         this.color = color;
         this.privacy = privacy;
     }
-
-    @Builder
-    public Post(String title, String content, String privacy){
-        this.title = title;
-        this.content = content;
-        this.privacy = privacy;
-    }
 }

@@ -19,7 +19,7 @@ public class PostRepositoryTest {
         String content = "This is Test.";
         String privacy = "public";
 
-        Post post = new Post(title, content, privacy);
+        Post post = Post.builder().title(title).content(content).privacy(privacy).build();
 
         Post savedPost = postRepo.save(post);
 

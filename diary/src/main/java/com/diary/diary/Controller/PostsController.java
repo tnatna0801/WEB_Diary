@@ -19,24 +19,44 @@ public class PostsController {
         this.postService = postService;
     }
 
+    /**
+     * 일기 작성 화면
+     * @return 작성 화면
+     */
     @GetMapping("/writepost")
     public String writePost(){
         return "writepost";
     }
 
+    /**
+     * 작성한 일기 저장
+     * @param PostRequestDto 작성된 일기 데이터를 가지고 있는 객체
+     * @return 작성한 일기를 확인할 수 있는 페이지
+     */
     @PostMapping("/writepost")
     public String savePost(PostValueDTO.PostRequestDto PostRequestDto){
         postService.savePost(PostRequestDto);
-        return "redirect:/writepost";}
+        return "post";}
 
     /**
      * 일기 목록 조회
-     * @return postlist.html 회원 조회 페이지
+     * @return postlist.html 일기 조회 페이지
      */
     @RequestMapping("/postlist")
     public String postList(Model model) {
         model.addAttribute("postList", postService.allPosts());
         return "postlist";
+    }
+
+    /**
+     * 일기 삭제
+     * @param responseDto 삭제할 일기의 id 뎅
+     * @return 일기 목록 조회
+     */
+    @RequestMapping("/deletePost")
+    public String deletePost(PostValueDTO.PostResponseDto responseDto){
+        postService.deletePost(responseDto);
+        return "redirect:/postlist";
     }
 
 }

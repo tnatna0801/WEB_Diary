@@ -13,6 +13,8 @@ public class PostValueDTO {
     @Setter
     public static class PostRequestDto{
 
+        private long id;
+
         private String title;
 
         private String content;

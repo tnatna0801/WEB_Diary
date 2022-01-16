@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>임시 일기 목록</title>
+    <script src = "/js/scripts.js"></script>
 </head>
 <body>
 <div class="title">
@@ -19,6 +19,7 @@
                     <th width="10%">일기번호</th>
                     <th width="10%">제목</th>
                     <th width="50%">내용</th>
+                    <th width="5%"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -26,6 +27,11 @@
                     <td th:text="*{id}"></td>
                     <td th:text="*{title}"></td>
                     <td th:text="*{content}"></td>
+                    <td>
+                        <form id="delete-form" th:action="@{/deletePost}" th:object = "" method="POST" th:object = "PostResponseDto">
+                        <button type="button" class="btn btn-secondary btn-large form-control" id="btn_postlistForm" onclick="location.href='/deletePost'">delete</button>
+                        </form>
+                    </td>
                 </tr>
                 </tbody>
             </table>
