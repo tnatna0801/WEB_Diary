@@ -1,4 +1,4 @@
-package com.diary.diary;
+package com.diary.diary.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
-    @GetMapping("/home") // 루트 경로인 /의 웹 요청을 처리한다.
+    @GetMapping("/home")
     public String home() {
         return "home";
     }

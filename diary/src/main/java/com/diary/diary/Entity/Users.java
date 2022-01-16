@@ -1,4 +1,4 @@
-package com.diary.diary;
+package com.diary.diary.Entity;
 
 
 import com.sun.istack.NotNull;
@@ -20,12 +20,15 @@ public class Users {
     private Long id;
 
     @NotNull
+    @Column(length = 40)
     private String email;
 
     @NotNull
+    @Column(length = 15)
     private String name;
 
     @NotNull
+    @Column(length = 20)
     private String password;
 
     @Builder
@@ -34,5 +37,4 @@ public class Users {
         this.name = name;
         this.password = password;
     }
-
 }
