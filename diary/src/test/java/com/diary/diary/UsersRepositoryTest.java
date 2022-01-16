@@ -2,6 +2,7 @@ package com.diary.diary;
 
 
 
+import com.diary.diary.DTO.UserValueDTO;
 import com.diary.diary.Entity.Users;
 import com.diary.diary.Repository.UsersRepository;
 import org.junit.jupiter.api.Assertions;
@@ -26,24 +27,33 @@ public class UsersRepositoryTest {
         String email="hong12@gmail.com";
         String password="gildong1234";
 
-        Users user = new Users(email, name, password);
+        UserValueDTO.UserRequestDto requestDto = UserValueDTO.UserRequestDto.builder()
+                .email(email)
+                .name(name)
+                .password(password)
+                .build();
 
-        Users saveduser = usersrepo.save(user);
-        Assertions.assertEquals(user.getName(), saveduser.getName());
+
+        Users saveduser = usersrepo.save(requestDto.toEntity());
+        Assertions.assertEquals(requestDto.getName(), saveduser.getName());
 
     }
 
     @Test
     public void duplicateEmail(){
-        String name="김철수";
+        String name="김진수";
         String email="soo@gmail.com";
         String password="asdf123";
 
-        Users user = new Users(email, name, password);
+        UserValueDTO.UserRequestDto requestDto = UserValueDTO.UserRequestDto.builder()
+                .email(email)
+                .name(name)
+                .password(password)
+                .build();
 
-        Users savedUser = usersrepo.save(user);
+
+        Users savedUser = usersrepo.save(requestDto.toEntity());
 
         Assertions.assertTrue(usersrepo.existsByEmail(savedUser.getEmail()));
-        System.out.println(usersrepo.existsByEmail(savedUser.getEmail()));
     }
 }

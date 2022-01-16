@@ -36,7 +36,7 @@ public class PostsController {
     @PostMapping("/writepost")
     public String savePost(PostValueDTO.PostRequestDto PostRequestDto){
         postService.savePost(PostRequestDto);
-        return "post";}
+        return "postlist";}
 
     /**
      * 일기 목록 조회
@@ -55,7 +55,7 @@ public class PostsController {
      */
     @RequestMapping("/deletePost")
     public String deletePost(PostValueDTO.PostResponseDto responseDto){
-        postService.deletePost(responseDto);
+        postService.deletePost(responseDto.getId());
         return "redirect:/postlist";
     }
 

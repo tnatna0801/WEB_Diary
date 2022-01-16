@@ -22,9 +22,9 @@ public class PostService {
     }
 
     //일기 삭제
-    public void deletePost(PostValueDTO.PostResponseDto response){
+    public void deletePost(long Id){
 
-        postRepo.delete(postRepo.findById(response.getId()));
+        postRepo.delete(postRepo.findById(Id));
     }
 
     //일기 리스트 조회

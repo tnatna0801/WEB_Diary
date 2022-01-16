@@ -1,5 +1,6 @@
 package com.diary.diary;
 
+import com.diary.diary.DTO.PostValueDTO;
 import com.diary.diary.Entity.Post;
 import com.diary.diary.Repository.PostRepository;
 import org.junit.jupiter.api.Assertions;
@@ -19,21 +20,40 @@ public class PostRepositoryTest {
         String content = "This is Test.";
         String privacy = "public";
 
-        Post post = Post.builder().title(title).content(content).privacy(privacy).build();
+        PostValueDTO.PostRequestDto requestDto = PostValueDTO.PostRequestDto.builder()
+                .title(title)
+                .content(content)
+                .privacy(privacy)
+                .build();
 
-        Post savedPost = postRepo.save(post);
+        Post savedPost = postRepo.save(requestDto.toEntity());
 
         Assertions.assertEquals(title, savedPost.getTitle());
     }
 
+    @Test
     public void deletePost(){
+        String title = "삭제용";
+        String content = "삭제 테스트 중입니다.";
+        String privacy = "public";
 
-        //postRepo.delete();
+        PostValueDTO.PostRequestDto requestDto = PostValueDTO.PostRequestDto.builder()
+                .title(title)
+                .content(content)
+                .privacy(privacy)
+                .build();
+
+        Post savedPost = postRepo.save(requestDto.toEntity());
+
+        long id = savedPost.getId();
+
+        postRepo.delete(savedPost);
+
+        System.out.println(postRepo.findById(id));
+        Assertions.assertNull(postRepo.findById(id));
+
     }
 
-    public void editPost(){
-
-    }
 
 
 }

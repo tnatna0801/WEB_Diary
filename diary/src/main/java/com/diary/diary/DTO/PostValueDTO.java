@@ -35,6 +35,7 @@ public class PostValueDTO {
 
         private String privacy;
 
+        @Builder
         public PostRequestDto(String title, String content, String imgUrl,
                                             String weather, String feeling, Date createDate,
                                             Date updatedDate, Date deletedDate,
