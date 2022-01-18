@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>임시일기작성폼</title>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 </head>
 <body>
 <div class="title">
@@ -15,9 +16,9 @@
             <input type="text" name="title" class="form-control" placeholder="제목" autocomplete="off" required/>
         </div>
 
-        <div>
-            <input type="text" name="content" class="form-control" placeholder="내용" autocomplete="off" required/>
-        </div>
+        <div id="editor" style="margin: 16px"></div>
+        <input type="hidden" id="content" name="content" />
+
         <div style="margin: 0;">
             <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" class="custom-control-input" id="privacy-1" name="privacy" value="public" checked>
@@ -35,6 +36,25 @@
             <button type="button" class="btn btn-secondary btn-large form-control" id="btn_postform">Back</button>
         </div>
     </form>
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <script>
+        const editor = new toastui.Editor({
+            el: document.getElementById('editor'),
+            height: '500px',
+            initialValue: "Hello World!",
+            initialEditType: 'wysiwyg',
+            hideModeSwitch: true,
+            placeholder: '일기 내용을 작성해 주세요!',
+            events: {
+                change: function() {
+                    console.log(editor.getMarkdown());
+                    document.getElementById("content").value = editor.getMarkdown();
+                },
+            }
+        });
+
+        editor.getMarkdown();
+    </script>
 </div>
 </body>
 </html>
