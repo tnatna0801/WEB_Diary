@@ -50,7 +50,7 @@ public class PostsController {
 
     /**
      * 일기 삭제
-     * @param responseDto 삭제할 일기의 id 뎅
+     * @param responseDto 삭제할 일기의 id를 가진 객체
      * @return 일기 목록 조회
      */
     @RequestMapping("/deletePost")

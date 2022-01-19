@@ -16,6 +16,11 @@
             <input type="text" name="title" class="form-control" placeholder="제목" autocomplete="off" required/>
         </div>
 
+        <div>
+            <input type="text" name="weather" class="form-control" placeholder="날씨" autocomplete="off"/>
+            <input type="text" name="feeling" class="form-control" placeholder="기분" autocomplete="off"/>
+        </div>
+
         <div id="editor" style="margin: 16px"></div>
         <input type="hidden" id="content" name="content" />
 
@@ -23,10 +28,12 @@
             <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" class="custom-control-input" id="privacy-1" name="privacy" value="public" checked>
                 <label class="custom-control-label" for="privacy-1">public</label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
+
                 <input type="radio" class="custom-control-input" id="privacy-2" name="privacy" value="private">
                 <label class="custom-control-label" for="privacy-2">private</label>
+
+                <input type="radio" class="custom-control-input" id="privacy-3" name="privacy" value="friends">
+                <label class="custom-control-label" for="privacy-2">friends</label>
             </div>
         </div>
         <div>
@@ -41,7 +48,7 @@
         const editor = new toastui.Editor({
             el: document.getElementById('editor'),
             height: '500px',
-            initialValue: "Hello World!",
+            initialValue: "오늘 어떤 일이 있었나요?",
             initialEditType: 'wysiwyg',
             hideModeSwitch: true,
             placeholder: '일기 내용을 작성해 주세요!',
