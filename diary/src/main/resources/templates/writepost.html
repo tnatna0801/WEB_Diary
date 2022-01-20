@@ -12,19 +12,21 @@
 </div>
 <div class="content">
     <form method="POST" th:action="@{/writepost}" >
-        <div>
+        <div style="margin:10px" >
             <input type="text" name="title" class="form-control" placeholder="제목" autocomplete="off" required/>
         </div>
 
-        <div>
+        <div style="margin: 10px">
             <input type="text" name="weather" class="form-control" placeholder="날씨" autocomplete="off"/>
             <input type="text" name="feeling" class="form-control" placeholder="기분" autocomplete="off"/>
+            배경색을 골라주세요: <input type="color" name="color" class="form-control" placeholder="배경색" autocomplete="off"/>
         </div>
 
         <div id="editor" style="margin: 16px"></div>
-        <input type="hidden" id="content" name="content" />
+        <input type="hidden" id="content" name="content" required/>
 
-        <div style="margin: 0;">
+
+        <div style="margin: 10px;">
             <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" class="custom-control-input" id="privacy-1" name="privacy" value="public" checked>
                 <label class="custom-control-label" for="privacy-1">public</label>
@@ -36,10 +38,8 @@
                 <label class="custom-control-label" for="privacy-2">friends</label>
             </div>
         </div>
-        <div>
+        <div style="margin: 10px">
             <button type="submit" class="btn btn-dark btn-large form-control">저장</button>
-        </div>
-        <div>
             <button type="button" class="btn btn-secondary btn-large form-control" id="btn_postform">Back</button>
         </div>
     </form>

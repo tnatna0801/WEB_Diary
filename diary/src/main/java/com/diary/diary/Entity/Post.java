@@ -3,6 +3,8 @@ package com.diary.diary.Entity;
 
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -32,13 +34,12 @@ public class Post {
     private String feeling;
 
     @Column(name = "created_date")
+    @CreatedDate
     private Date createDate;
 
+    @LastModifiedDate
     @Column(name = "updated_date")
     private Date updatedDate;
-
-    @Column(name = "deleted_date")
-    private Date deletedDate;
 
     private String color;
 
@@ -52,8 +53,7 @@ public class Post {
     @Builder
     public Post(String title, String content, String imgUrl,
                 String weather, String feeling, Date createDate,
-                Date updatedDate, Date deletedDate,
-                String color, String privacy) {
+                Date updatedDate, String color, String privacy) {
         this.title = title;
         this.content = content;
         this.imgUrl = imgUrl;
@@ -61,7 +61,6 @@ public class Post {
         this.feeling = feeling;
         this.createDate = createDate;
         this.updatedDate = updatedDate;
-        this.deletedDate = deletedDate;
         this.color = color;
         this.privacy = privacy;
     }

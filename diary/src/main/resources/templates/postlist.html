@@ -7,6 +7,7 @@
     <script src = "/js/scripts.js"></script>
 </head>
 <body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div class="title">
     <h1>일기 목록</h1>
 </div>
@@ -24,13 +25,13 @@
                 </thead>
                 <tbody>
                 <tr class="text-center" th:object="${post}" th:each="post: ${postList}">
-                    <td th:text="*{id}"></td>
+                    <td th:text="*{id}" name="id"></td>
                     <td th:text="*{title}"></td>
                     <td th:text="*{content}"></td>
                     <td>
-                        <form id="delete-form" th:action="@{/deletePost}" th:object = "" method="POST" th:object = "PostResponseDto">
-                        <button type="button" class="btn btn-secondary btn-large form-control" id="btn_postlistForm" onclick="location.href='/deletePost'">delete</button>
-                        </form>
+<!--                        <form id="delete-form" th:action="@{/deletePost}" method="POST">-->
+                            <button type="button" class="btn btn-secondary btn-large form-control" id="btn_postlistForm" onclick="deletePost(event)">delete</button>
+<!--                        </form>-->
                     </td>
                 </tr>
                 </tbody>
@@ -38,5 +39,30 @@
         </div>
     </div>
 </div>
+<script>
+        function deletePost(event) {
+        let id = event.target.parentNode.parentNode.firstChild;
+        console.log(id);
+        $.ajax({
+            type: 'POST',
+            url: '/deletePost',
+            data: {
+                id: id,
+            },
+            dataType: 'json',
+            success: function (result) {
+                if(result){
+                    alert("삭제되었습니다.");
+                }
+                else{
+                    alert("삭제할 수 없습니다.");
+                }
+            },
+            error: function () {
+                alert("서버에서 에러 발생");
+            },
+        });
+    }
+</script>
 </body>
 </html>

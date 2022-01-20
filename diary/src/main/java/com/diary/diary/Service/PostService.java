@@ -20,9 +20,10 @@ public class PostService {
     }
 
     //일기 삭제
-    public void deletePost(long Id){
+    public boolean deletePost(long Id){
 
         postRepo.delete(postRepo.findById(Id));
+        return postRepo.existsById(Id);
     }
 
     //일기 리스트 조회

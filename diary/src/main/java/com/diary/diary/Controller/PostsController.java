@@ -2,12 +2,14 @@ package com.diary.diary.Controller;
 
 import com.diary.diary.DTO.PostValueDTO;
 import com.diary.diary.Service.PostService;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class PostsController {
@@ -48,15 +50,17 @@ public class PostsController {
         return "postlist";
     }
 
+
     /**
      * 일기 삭제
-     * @param responseDto 삭제할 일기의 id를 가진 객체
-     * @return 일기 목록 조회
+     * @param Id 삭제할 일기의 Id
+     * @return 삭제가 되었는지 결과를 boolean으로 반환
      */
     @RequestMapping("/deletePost")
-    public String deletePost(PostValueDTO.PostResponseDto responseDto){
-        postService.deletePost(responseDto.getId());
-        return "redirect:/postlist";
+    @JsonProperty
+    @ResponseBody
+    public boolean deletePost(long Id){
+        return postService.deletePost(Id);
     }
 
 }

@@ -29,7 +29,6 @@ public class PostValueDTO {
 
         private Date updatedDate;
 
-        private Date deletedDate;
 
         private String color;
 
@@ -37,8 +36,8 @@ public class PostValueDTO {
 
         @Builder
         public PostRequestDto(String title, String content, String imgUrl,
-                                            String weather, String feeling, Date createDate,
-                                            Date updatedDate, Date deletedDate,
+                                            String weather, String feeling,
+                                            Date createDate, Date updatedDate,
                                             String color, String privacy) {
             this.title = title;
             this.content = content;
@@ -47,7 +46,6 @@ public class PostValueDTO {
             this.feeling = feeling;
             this.createDate = createDate;
             this.updatedDate = updatedDate;
-            this.deletedDate = deletedDate;
             this.color = color;
             this.privacy = privacy;
         }
@@ -61,7 +59,6 @@ public class PostValueDTO {
                     .feeling(feeling)
                     .createDate(createDate)
                     .updatedDate(updatedDate)
-                    .deletedDate(deletedDate)
                     .color(color)
                     .privacy(privacy)
                     .build();
