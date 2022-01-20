@@ -50,12 +50,12 @@ public class PostsController {
 
     /**
      * 일기 삭제
-     * @param responseDto 삭제할 일기의 id를 가지고 있는 객체
+     * @param Id 삭제할 일기의 id를 가지고 있는 객체
      * @return 일기 목록 조회
      */
     @RequestMapping("/deletePost")
-    public String deletePost(PostValueDTO.PostResponseDto responseDto){
-        postService.deletePost(responseDto.getId());
+    public String deletePost(long Id){
+        postService.deletePost(Id);
         return "redirect:/postlist";
     }
 
