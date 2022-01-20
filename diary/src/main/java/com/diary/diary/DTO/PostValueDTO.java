@@ -1,7 +1,6 @@
 package com.diary.diary.DTO;
 
 import com.diary.diary.Entity.Post;
-import com.diary.diary.Repository.PostRepository;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +27,6 @@ public class PostValueDTO {
         private Date createDate;
 
         private Date updatedDate;
-
 
         private String color;
 
@@ -71,8 +69,36 @@ public class PostValueDTO {
     public static class PostResponseDto{
         private final long id;
 
-        public PostResponseDto(long id){
-            this.id = id;
+        private final String title;
+
+        private final String content;
+
+        private final String imgUrl;
+
+        private final String weather;
+
+        private final String feeling;
+
+        private final Date createDate;
+
+        private final Date updatedDate;
+
+        private final String color;
+
+        private final String privacy;
+
+        public PostResponseDto(Post post){
+            this.id = post.getId();
+            this.title = post.getTitle();
+            this.content = post.getContent();
+            this.imgUrl = post.getImgUrl();
+            this.weather = post.getWeather();
+            this.feeling = post.getFeeling();
+            this.createDate = post.getCreateDate();
+            this.updatedDate = post.getUpdatedDate();
+            this.color = post.getColor();
+            this.privacy = post.getPrivacy();
+
         }
     }
 
