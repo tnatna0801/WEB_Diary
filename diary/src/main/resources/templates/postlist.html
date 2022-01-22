@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>임시 일기 목록</title>
-    <script src = "/js/scripts.js"></script>
 </head>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -19,19 +18,16 @@
                 <tr class="text-center">
                     <th width="10%">일기번호</th>
                     <th width="10%">제목</th>
-                    <th width="50%">내용</th>
                     <th width="5%"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr class="text-center" th:object="${post}" th:each="post: ${postList}">
-                    <td th:text="*{id}" name="id"></td>
-                    <td th:text="*{title}"></td>
-                    <td th:text="*{content}"></td>
+                    <td th:text="*{id}" name="id" ></td>
+                    <td><a th:href="@{|/post/${post.id}|}" th:text="*{title}" ></a></td>
                     <td>
-<!--                        <form id="delete-form" th:action="@{/deletePost}" method="POST">-->
-                            <button type="button" class="btn btn-secondary btn-large form-control" id="btn_postlistForm" onclick="deletePost(event)">delete</button>
-<!--                        </form>-->
+
+                            <button type="button" class="btn btn-secondary btn-large form-control" id="btn_postlistForm" th:attr="onclick=|deletePost('${post.id}')|" >delete</button>
                     </td>
                 </tr>
                 </tbody>
@@ -40,19 +36,19 @@
     </div>
 </div>
 <script>
-        function deletePost(event) {
-        let id = event.target.parentNode.parentNode.firstChild;
+        function deletePost(id) {
         console.log(id);
         $.ajax({
             type: 'POST',
             url: '/deletePost',
             data: {
-                id: id,
+                id: parseInt(id),
             },
             dataType: 'json',
             success: function (result) {
-                if(result){
+                if(!result){
                     alert("삭제되었습니다.");
+
                 }
                 else{
                     alert("삭제할 수 없습니다.");
@@ -60,6 +56,7 @@
             },
             error: function () {
                 alert("서버에서 에러 발생");
+
             },
         });
     }
