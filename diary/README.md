@@ -72,7 +72,7 @@ Post savedPost = service.savePost(requestDto);
 
 #### 결론: 외부파일로 일단 프로젝트만들고 후에는 AWS S3사용해보기
 
-**toast ui image upload 기능 사용해보기
+**ast ui image upload 기능 사용해보기**
 
 ![image](https://user-images.githubusercontent.com/48270067/150636819-d37dc214-ae85-4f55-b2f5-7c8ec585cc5c.png)
 
