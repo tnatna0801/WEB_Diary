@@ -45,7 +45,7 @@ Post savedPost = service.savePost(requestDto);
 
 ## Step 7
 
-#### 이미지 경로
+### 이미지 경로
 
 **외부 폴더를 추가해 실제 시스템의 폴더를 사용**
 
@@ -69,10 +69,11 @@ Post savedPost = service.savePost(requestDto);
 * 비용? 5GB 무료
  * AWS 신규 가입 고객은 1년 동안 매달 5GB의 Amazon S3 스토리지(S3 Standard), 20,000건의 Get 요청, 2,000건의 Put 요청, Delete 요청, 15GB의 데이터 전송이 무료
 
+---
 
-#### 결론: 외부파일로 일단 프로젝트만들고 후에는 AWS S3사용해보기
+### 결론: 외부파일로 일단 프로젝트만들고 후에는 AWS S3사용해보기
 
-**ast ui image upload 기능 사용해보기**
+**Toast ui image upload 기능 사용해보기**
 
 ![image](https://user-images.githubusercontent.com/48270067/150636819-d37dc214-ae85-4f55-b2f5-7c8ec585cc5c.png)
 
