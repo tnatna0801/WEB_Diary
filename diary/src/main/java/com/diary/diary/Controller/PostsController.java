@@ -6,10 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 
 @Controller
 public class PostsController {
@@ -38,7 +36,18 @@ public class PostsController {
     @PostMapping("/writepost")
     public String savePost(PostValueDTO.PostRequestDto PostRequestDto){
         postService.savePost(PostRequestDto);
-        return "postlist";}
+        return "redirect:/postlist";}
+
+    /**
+     * 일기 상세 페이지
+     * @param id 일기 ID
+     * @return 일기 상세 페이지
+     */
+    @RequestMapping("/post/{id}")
+    public String detailPost(@PathVariable long id, Model model) {
+        model.addAttribute("post", postService.selectPost(id));
+        return "post";
+    }
 
     /**
      * 일기 목록 조회
@@ -47,20 +56,20 @@ public class PostsController {
     @RequestMapping("/postlist")
     public String postList(Model model) {
         model.addAttribute("postList", postService.allPosts());
-        return "postlist";
+        return "redirect:/postlist";
     }
 
 
     /**
      * 일기 삭제
-     * @param Id 삭제할 일기의 Id
+     * @param id 삭제할 일기의 Id
      * @return 삭제가 되었는지 결과를 boolean으로 반환
      */
     @RequestMapping("/deletePost")
     @JsonProperty
     @ResponseBody
-    public boolean deletePost(long Id){
-        return postService.deletePost(Id);
+    public boolean deletePost(long id){
+        return postService.deletePost(id);
     }
 
 }
