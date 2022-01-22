@@ -38,4 +38,8 @@ public class PostService {
 
         return list;
     }
+
+    public PostValueDTO.PostResponseDto selectPost(long Id){
+        return new PostValueDTO.PostResponseDto(postRepo.findById(Id));
+    }
 }

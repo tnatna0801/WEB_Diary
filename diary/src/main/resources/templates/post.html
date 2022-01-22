@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>임시 상세 페이지</title>
+    <script src = "/js/scripts.js"></script>
+</head>
+<body>
+<div class="text-center" th:object="${post}">
+    <div th:text="*{title}"></div>
+    <div th:text="*{content}"></div>
+</div>
+</body>
+</html>
