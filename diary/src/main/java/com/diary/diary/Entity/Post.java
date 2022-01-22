@@ -3,8 +3,8 @@ package com.diary.diary.Entity;
 
 import com.sun.istack.NotNull;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -34,11 +34,11 @@ public class Post {
     private String feeling;
 
     @Column(name = "created_date")
-    @CreatedDate
+    @CreationTimestamp
     private Date createDate;
 
-    @LastModifiedDate
     @Column(name = "updated_date")
+    @UpdateTimestamp
     private Date updatedDate;
 
     private String color;
