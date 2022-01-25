@@ -85,3 +85,34 @@ Toast Ui Editor는 이미지 업로드 시 이미지가 base64의 형태로 변�
 * addImageHook()을 사용하라는 글을 보았다. 아직 미해결. 조금 더 예제를 보고 적용하려한다.
 
 
+## Step 8
+
+### post 상세 보기 페이지에서 수정, 삭제 기능 구현
+
+**오류**
+
+* localhost:8080/postlist(post 목록 페이지)에 이동했을때 해당 주소가 너무 많이 리디엑션되었다는 오류가 나왔다.
+	* postlist 에서 삭제 후 새로고침이 되도록 하고 싶었다.
+	*  postcontroller에서 post 목록 페이지로 맵핑되는 메소드 postlist()의 return 값을 redirection:/postlist로 했더니 에러가 나온것같다.
+	* 그래서 지우고 postlist로 바꿨더니 해결
+
+삭제 기능은 여차저차 잘 했는데 수정에서 막혔다.
+
+* 수정버튼을 누르면 /writepost로 이동하여 일기 편집기가 보이고 이전에 저장해둔 내용이 보이게 하고 싶었다.
+	* 블로그를 참고해보려고 tistory에서 수정을 눌렀더니 주소창에 "/manage/newpost/25?type=post&returnURL=수정하려는 페이지주소"가 추가되었다.
+	* /editPost/{id} 페이지에 Model 객체를 사용해서 저장된 일기 내용을 가져왔다.
+
+
+* JPA Repository save
+	* .save()가 inser, update 둘 다 가능하다는 걸 알게되었다.
+	* id가 없으면 save로 저장시 insert가 되는 것이고 id가 기존에 존재하면 merge() 메소드를 사용해 update가 된다.
+	* 문제는 form을 사용해서 수정한 데이터를 POST 방식으로 보냈는데 id가 없어서 새로 저장된다는 점이다.
+	* 아래 코드처럼 했더니 Id가 0이 나왔다. Id 값도 넘겨받아야하는데 form에는 id 값이 입력되는 칸이 없다. 그래서 form으로 제출할 때는 id 값을 가져오지 못하는 것이라고 생각한다.
+	* ajax를 사용해야하나 고민중
+
+```java
+@PostMapping("/updatePost")
+    public String updatePost(PostValueDTO.PostRequestDto PostRequestDto){
+        System.out.println(PostREquestDto.getId());
+        postService.updatePost(PostRequestDto);
+```
