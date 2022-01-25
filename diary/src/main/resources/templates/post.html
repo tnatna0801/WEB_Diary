@@ -4,12 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <title>임시 상세 페이지</title>
-    <script src = "/js/scripts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="text-center" th:object="${post}">
     <div th:text="*{title}"></div>
+    <div th:text="*{createDate}">작성 일자: </div>
+    <div>날씨: <b th:text="*{weather}"></b>
+        <br>
+        기분: <b th:text="*{feeling}"></b>
+    </div>
     <div th:text="*{content}"></div>
 </div>
+<div class="button-">
+    <button type="button" class="btn btn-secondary btn-large form-control" id="btn_postDel" th:attr="onclick=|deletePost('${post.id}')|">delete</button>
+    <button type="button" class="btn btn-secondary btn-large form-control" id="btn_postEdit">edit</button>
+</div>
+<script>
+function deletePost(id) {
+console.log(id);
+$.ajax({
+type: 'POST',
+url: '/deletePost',
+data: {
+id: parseInt(id),
+},
+dataType: 'json',
+success: function (result) {
+if(!result){
+alert("삭제되었습니다.");
+location.replace("/postlist");
+}
+else{
+alert("삭제할 수 없습니다.");
+}
+},
+error: function () {
+alert("서버에서 에러 발생");
+
+},
+});
+}
+</script>
 </body>
 </html>
