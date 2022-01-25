@@ -36,7 +36,7 @@ public class PostsController {
     @PostMapping("/writepost")
     public String savePost(PostValueDTO.PostRequestDto PostRequestDto){
         postService.savePost(PostRequestDto);
-        return "redirect:/postlist";}
+        return "postlist";}
 
     /**
      * 일기 상세 페이지
@@ -56,7 +56,7 @@ public class PostsController {
     @RequestMapping("/postlist")
     public String postList(Model model) {
         model.addAttribute("postList", postService.allPosts());
-        return "redirect:/postlist";
+        return "postlist";
     }
 
 
