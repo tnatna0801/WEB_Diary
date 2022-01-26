@@ -8,19 +8,54 @@
 </head>
 <body>
 <div class="text-center" th:object="${post}">
-    <div th:text="*{title}"></div>
-    <div th:text="*{createDate}">작성 일자: </div>
+    <div th:text="*{title}">제목:</div>
+    <div th:text="*{createDate}">작성 일자:</div>
     <div>날씨: <b th:text="*{weather}"></b>
         <br>
         기분: <b th:text="*{feeling}"></b>
     </div>
     <div th:text="*{content}"></div>
+
+    <div class="button-">
+        <button type="button" class="btn btn-secondary btn-large form-control" id="btn_postDel"
+                th:attr="onclick=|deletePost('${post.id}')|">delete
+        </button>
+        <button type="button" class="btn btn-secondary btn-large form-control" id="btn_postEdit"
+                th:onclick="'location.href=\''+ @{|/editPost/${post.id}|} + '\''">edit
+        </button>
+    </div>
+
+
+    <div class="comment">
+        <form method="POST" th:action="@{/addcomment}">
+
+            <input type="hidden" id="post_id" name="post_id" th:attr="value=${post.id}">
+
+            <div class="content" style="margin: 10px;">
+                <input type="text" name="content" class="form-control" placeholder="댓글을 남겨주세요." autocomplete="off"/>
+                <button type="submit" class="btn btn-secondary btn-large form-control" id="btn_addcomment">등록</button>
+            </div>
+
+            <div class="radio">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="privacy-1" name="privacy" value="public"
+                           checked>
+                    <label class="custom-control-label" for="privacy-1">public</label>
+
+                    <input type="radio" class="custom-control-input" id="privacy-2" name="privacy" value="private">
+                    <label class="custom-control-label" for="privacy-2">private</label>
+
+                    <input type="radio" class="custom-control-input" id="privacy-3" name="privacy" value="friends">
+                    <label class="custom-control-label" for="privacy-2">friends</label>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
-<div class="button-">
-    <button type="button" class="btn btn-secondary btn-large form-control" id="btn_postDel" th:attr="onclick=|deletePost('${post.id}')|">delete</button>
-    <button type="button" class="btn btn-secondary btn-large form-control" id="btn_postEdit">edit</button>
-</div>
+
 <script>
+
+<!--일기 삭제-->
 function deletePost(id) {
 console.log(id);
 $.ajax({
@@ -45,6 +80,29 @@ alert("서버에서 에러 발생");
 },
 });
 }
+
+<!--일기 수정-->
+<!--function editPost(id){-->
+<!--$.ajax({-->
+<!--type: 'POST',-->
+<!--url: '/editPost',-->
+<!--data: {-->
+<!--id: parseInt(id),-->
+<!--},-->
+<!--dataType: 'json',-->
+<!--success: function (result) {-->
+<!-- $("input[name='e']").val("");-->
+<!-- $("input[name='email']").focus();-->
+<!-- },-->
+<!--error: function () {-->
+<!--alert("서버에서 에러 발생");-->
+
+<!--},-->
+<!--});-->
+<!--}-->
+
+
+
 </script>
 </body>
 </html>

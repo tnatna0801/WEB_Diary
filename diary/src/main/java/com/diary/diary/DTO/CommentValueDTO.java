@@ -1,6 +1,8 @@
 package com.diary.diary.DTO;
 
 import com.diary.diary.Entity.Comments;
+import com.diary.diary.Entity.Post;
+import com.diary.diary.Repository.PostRepository;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,29 +14,36 @@ public class CommentValueDTO {
     @Getter
     @Setter
     public static class CommentRequestDto{
+
         private long id;
         private String content;
         private Date createDate;
         private Date updateDate;
         private String privacy;
+//        private long post_id;
 
         @Builder
         public CommentRequestDto(String content,
                                  Date createDate,
                                  Date updateDate,
-                                 String privacy){
+                                 String privacy
+//                                 long post_id
+        ){
             this.content = content;
             this.createDate = createDate;
             this.updateDate = updateDate;
             this.privacy = privacy;
+//            this.post_id = post_id;
         }
 
         public Comments toEntity(){
+
             return Comments.builder()
                     .content(content)
                     .createDate(createDate)
                     .updateDate(updateDate)
                     .privacy(privacy)
+//                    .post()
                     .build();
         }
 
