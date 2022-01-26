@@ -12,7 +12,7 @@ public class PostValueDTO {
     @Setter
     public static class PostRequestDto{
 
-        private long id;
+        private Long id;
 
         private String title;
 
@@ -33,10 +33,11 @@ public class PostValueDTO {
         private String privacy;
 
         @Builder
-        public PostRequestDto(String title, String content, String imgUrl,
+        public PostRequestDto(Long id, String title, String content, String imgUrl,
                                             String weather, String feeling,
                                             Date createDate, Date updatedDate,
                                             String color, String privacy) {
+            this.id = id;
             this.title = title;
             this.content = content;
             this.imgUrl = imgUrl;
@@ -50,6 +51,7 @@ public class PostValueDTO {
 
         public Post toEntity(){
             return Post.builder()
+                    .id(id)
                     .title(title)
                     .content(content)
                     .imgUrl(imgUrl)

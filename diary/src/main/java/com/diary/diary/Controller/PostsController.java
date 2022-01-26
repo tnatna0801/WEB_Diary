@@ -105,7 +105,7 @@ public class PostsController {
      * 일기 수정 페이지
      * @param id 수정하려는 일기의 id 값
      * @param model
-     * @return 수정페이지를 반환
+     * @return 일기수정페이지를 반환
      */
     @RequestMapping("/editPost/{id}")
     public String editPostForm(@PathVariable long id, Model model) {

@@ -51,9 +51,10 @@ public class Post {
     private Users users;
 
     @Builder
-    public Post(String title, String content, String imgUrl,
+    public Post(long id, String title, String content, String imgUrl,
                 String weather, String feeling, Date createDate,
                 Date updatedDate, String color, String privacy) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.imgUrl = imgUrl;
