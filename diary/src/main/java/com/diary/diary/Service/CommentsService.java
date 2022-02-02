@@ -3,6 +3,7 @@ package com.diary.diary.Service;
 import com.diary.diary.DTO.CommentValueDTO;
 import com.diary.diary.Entity.Comments;
 import com.diary.diary.Repository.CommentsRepository;
+import com.diary.diary.Repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,11 @@ import java.util.List;
 public class CommentsService {
 
     private final CommentsRepository commentsRepo;
+    private final PostRepository postRepo;
 
     //댓글 생성
     public void addComment(CommentValueDTO.CommentRequestDto requestDto){
-        commentsRepo.save(requestDto.toEntity());
+        commentsRepo.save(requestDto.toEntity(postRepo.findById(requestDto.getPost_id())));
     }
 
     //댓글 삭제

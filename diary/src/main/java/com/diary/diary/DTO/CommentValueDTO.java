@@ -20,30 +20,30 @@ public class CommentValueDTO {
         private Date createDate;
         private Date updateDate;
         private String privacy;
-//        private long post_id;
+        private long post_id;
 
         @Builder
         public CommentRequestDto(String content,
                                  Date createDate,
                                  Date updateDate,
-                                 String privacy
-//                                 long post_id
+                                 String privacy,
+                                 long post_id
         ){
             this.content = content;
             this.createDate = createDate;
             this.updateDate = updateDate;
             this.privacy = privacy;
-//            this.post_id = post_id;
+            this.post_id = post_id;
         }
 
-        public Comments toEntity(){
+        public Comments toEntity(Post post){
 
             return Comments.builder()
                     .content(content)
                     .createDate(createDate)
                     .updateDate(updateDate)
                     .privacy(privacy)
-//                    .post()
+                    .post(post)
                     .build();
         }
 

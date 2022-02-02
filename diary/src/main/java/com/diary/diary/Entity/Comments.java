@@ -44,13 +44,13 @@ public class Comments {
 
     @Builder
     public Comments(String content, Date createDate,
-                    Date updateDate, String privacy
-//                    Post post
+                    Date updateDate, String privacy,
+                    Post post
     ){
         this.content = content;
         this.createDate = createDate;
         this.updateDate = updateDate;
         this.privacy = privacy;
-//        this.post = post;
+        this.post = post;
     }
 }
