@@ -27,30 +27,33 @@
 
 
     <div class="comment">
-        <form method="POST" th:action="@{/addcomment}">
+<!--        <form method="POST" th:action="@{/addcomment}">-->
 
             <input type="hidden" id="post_id" name="post_id" th:attr="value=${post.id}">
 
             <div class="content" style="margin: 10px;">
-                <input type="text" name="content" class="form-control" placeholder="댓글을 남겨주세요." autocomplete="off"/>
-                <button type="submit" class="btn btn-secondary btn-large form-control" id="btn_addcomment">등록</button>
+                <input type="text" id = "comment_content" name="comment_content" class="form-control" placeholder="댓글을 남겨주세요." autocomplete="off"/>
+                <button type="button" class="btn btn-secondary btn-large form-control" id="btn_addcomment" th:onclick="addComment()">등록</button>
             </div>
 
             <div class="radio">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="privacy-1" name="privacy" value="public"
+                    <input type="radio" class="custom-control-input" id="privacy-1" name="comment_privacy" value="public"
                            checked>
                     <label class="custom-control-label" for="privacy-1">public</label>
 
-                    <input type="radio" class="custom-control-input" id="privacy-2" name="privacy" value="private">
+                    <input type="radio" class="custom-control-input" id="privacy-2" name="comment_privacy" value="private">
                     <label class="custom-control-label" for="privacy-2">private</label>
 
-                    <input type="radio" class="custom-control-input" id="privacy-3" name="privacy" value="friends">
+                    <input type="radio" class="custom-control-input" id="privacy-3" name="comment_privacy" value="friends">
                     <label class="custom-control-label" for="privacy-2">friends</label>
                 </div>
             </div>
-        </form>
     </div>
+    <div class="commentList">
+
+    </div>
+
 </div>
 
 <script>
@@ -81,26 +84,58 @@ alert("서버에서 에러 발생");
 });
 }
 
-<!--일기 수정-->
-<!--function editPost(id){-->
-<!--$.ajax({-->
-<!--type: 'POST',-->
-<!--url: '/editPost',-->
-<!--data: {-->
-<!--id: parseInt(id),-->
-<!--},-->
-<!--dataType: 'json',-->
-<!--success: function (result) {-->
-<!-- $("input[name='e']").val("");-->
-<!-- $("input[name='email']").focus();-->
-<!-- },-->
-<!--error: function () {-->
-<!--alert("서버에서 에러 발생");-->
+let post_id = $("#post_id").val()
 
-<!--},-->
-<!--});-->
-<!--}-->
+<!--댓글 등록-->
+function addComment(){
+let content = $("#comment_content").val()
+let privacy = $("input[name=comment_privacy]").val()
+$.ajax({
+type: 'POST',
+url: '/addcomment',
+data: {
+post_id: post_id,
+content: content,
+privacy: privacy,
+},
+dataType: 'json',
+success: function (result) {
+if(result){
+ commentList();
+ alert("댓글을 등록했습니다.");
+ $("input[name='comment_content']").val("");
+ $("input[name='comment_content']").focus();
+ }
+ else{
+ alert("댓글을 등록할 수 없습니다.");
+ }
+ },
+error: function () {
+alert("서버에서 에러 발생");
 
+},
+});
+}
+
+<!--댓글 목록-->
+function commentList(){
+$.ajax({
+type: 'POST',
+url: '/comment/list',
+data: {post_id: post_id,},
+dataType: 'json',
+success: function(data){
+    let view = '';
+    $.each(data, function(key, value){
+
+        view += '<div class="content" name="list_content"><p>'+value.content+'</p></div>';
+
+    });
+
+    $(".commentList").html(view);
+},
+});
+}
 
 
 </script>
