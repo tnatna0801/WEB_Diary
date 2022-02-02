@@ -1,6 +1,7 @@
 package com.diary.diary.Entity;
 
 
+import com.diary.diary.DTO.PostValueDTO;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -51,10 +52,10 @@ public class Post {
     private Users users;
 
     @Builder
-    public Post(long id, String title, String content, String imgUrl,
+    public Post(String title, String content, String imgUrl,
                 String weather, String feeling, Date createDate,
                 Date updatedDate, String color, String privacy) {
-        this.id = id;
+//        this.id = id;
         this.title = title;
         this.content = content;
         this.imgUrl = imgUrl;
@@ -64,5 +65,19 @@ public class Post {
         this.updatedDate = updatedDate;
         this.color = color;
         this.privacy = privacy;
+    }
+
+    public void updateInfo(PostValueDTO.PostRequestDto requestDto) {
+
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+        this.imgUrl = requestDto.getImgUrl();
+        this.weather = requestDto.getWeather();
+        this.feeling = requestDto.getFeeling();
+        this.createDate = requestDto.getCreateDate();
+        this.updatedDate = requestDto.getUpdatedDate();
+        this.color = requestDto.getColor();
+        this.privacy = requestDto.getPrivacy();
+
     }
 }

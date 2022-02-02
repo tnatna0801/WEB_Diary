@@ -51,7 +51,7 @@ public class PostValueDTO {
 
         public Post toEntity(){
             return Post.builder()
-                    .id(id)
+//                    .id(id)
                     .title(title)
                     .content(content)
                     .imgUrl(imgUrl)
@@ -88,6 +88,7 @@ public class PostValueDTO {
         private final String color;
 
         private final String privacy;
+
 
         public PostResponseDto(Post post){
             this.id = post.getId();

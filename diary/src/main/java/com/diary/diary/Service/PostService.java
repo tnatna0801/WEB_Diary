@@ -44,6 +44,9 @@ public class PostService {
 
     //일기 업데이트
     public void updatePost(PostValueDTO.PostRequestDto requestDto) {
-       postRepo.save(requestDto.toEntity());
+
+            Post post = postRepo.findById(requestDto.getId());
+            post.updateInfo(requestDto);
+            postRepo.save(post);
     }
 }
