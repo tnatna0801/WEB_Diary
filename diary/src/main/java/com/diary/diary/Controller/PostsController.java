@@ -54,7 +54,8 @@ public class PostsController {
      * @return 이미지가 저장된 url
      */
     @PostMapping("/imageUpload")
-    public String imageUpload(MultipartFile multipartFile) throws IOException {
+    @ResponseBody
+    public Resource imageUpload(@RequestParam("image") MultipartFile multipartFile) throws IOException {
 
         //파일로 변환, 저장
         //service로 옮겨야함
@@ -75,13 +76,13 @@ public class PostsController {
         System.out.println(Paths.get(uploadPath));
 
 
-        return uploadPath; // 저장한 url return
+        return new UrlResource("file:"+uploadPath); // 저장한 url return
     }
 
     /**
      * 이미지를 다운로드하여 뷰에 넘기기
      * @param filename 이미지 저장명
-     * @return
+     * @return 저장경로
      * @throws MalformedURLException
      */
     @GetMapping("/imageUpload/{filename}")

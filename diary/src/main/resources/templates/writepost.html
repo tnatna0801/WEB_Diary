@@ -71,8 +71,10 @@
             },
             hooks: {
                 addImageBlobHook: async (blob, callback) => {
-                    const uploadImageURL = await uploadImage(blob);
-                    callback(uploadImageURL, "alt text");
+                    const uploadImageURL = await uploadImage(blob).then(r => r.blob());
+                    const url = window.URL.createObjectURL(uploadImageURL)
+                    console.log(url);
+                    callback(url, "alt text");
                     return false
                 },
             }

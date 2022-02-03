@@ -33,13 +33,9 @@ public class CommentsService {
     public List<CommentValueDTO.CommentResponseDto> selectAllComments(long postId){
        List<CommentValueDTO.CommentResponseDto> list =  new ArrayList<>();
 
-
-
-       for(Comments comment: commentsRepo.findAll()){
-           if(comment.getPost().getId() == postId){  // 더 간단하게 할 방법은 없을까??
+       for(Comments comment: commentsRepo.findByPostId(postId)){
                System.out.println(comment.getPost().getId());
                list.add(new CommentValueDTO.CommentResponseDto(comment));
-           }
        }
        return list;
     }
