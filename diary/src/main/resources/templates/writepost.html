@@ -45,6 +45,17 @@
     </form>
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     <script>
+
+        const uploadImage = async (blob) => {
+            const formData = new FormData();
+            formData.append('image', blob) // 이미지를 Formdata file로 변경, 'image'가 input name이다.
+            const url = await fetch("/imageUpload", {
+                method: 'POST',
+                body: formData
+            });
+            return url;
+
+        };
         const editor = new toastui.Editor({
             el: document.getElementById('editor'),
             height: '500px',
@@ -56,6 +67,13 @@
                 change: function() {
                     console.log(editor.getMarkdown());
                     document.getElementById("content").value = editor.getMarkdown();
+                },
+            },
+            hooks: {
+                addImageBlobHook: async (blob, callback) => {
+                    const uploadImageURL = await uploadImage(blob);
+                    callback(uploadImageURL, "alt text");
+                    return false
                 },
             }
         });
