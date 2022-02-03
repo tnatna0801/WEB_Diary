@@ -32,11 +32,12 @@ public class PostValueDTO {
 
         private String privacy;
 
+
         @Builder
         public PostRequestDto(Long id, String title, String content, String imgUrl,
-                                            String weather, String feeling,
-                                            Date createDate, Date updatedDate,
-                                            String color, String privacy) {
+                              String weather, String feeling,
+                              Date createDate, Date updatedDate,
+                              String color, String privacy) {
             this.id = id;
             this.title = title;
             this.content = content;
@@ -101,7 +102,6 @@ public class PostValueDTO {
             this.updatedDate = post.getUpdatedDate();
             this.color = post.getColor();
             this.privacy = post.getPrivacy();
-
         }
     }
 

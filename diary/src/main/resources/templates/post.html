@@ -25,10 +25,8 @@
         </button>
     </div>
 
-
+<!--댓글 작성-->
     <div class="comment">
-<!--        <form method="POST" th:action="@{/addcomment}">-->
-
             <input type="hidden" id="post_id" name="post_id" th:attr="value=${post.id}">
 
             <div class="content" style="margin: 10px;">
@@ -50,8 +48,9 @@
                 </div>
             </div>
     </div>
-    <div class="commentList">
 
+<!--댓글 목록-->
+    <div class="commentList">
     </div>
 
 </div>
