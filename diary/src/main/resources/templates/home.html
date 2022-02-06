@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html xmlns = "http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" >
-<head>
-    <meta charset="UTF-8">
-    <title>Diary</title>
-</head>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
 <body>
-<h1>Hello World</h1>
+<div layout:fragment="content">
+    <h1>Hello World</h1>
+</div>
 </body>
 </html>
