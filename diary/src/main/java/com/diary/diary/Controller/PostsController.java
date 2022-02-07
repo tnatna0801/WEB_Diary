@@ -33,7 +33,7 @@ public class PostsController {
      */
     @GetMapping("/writepost")
     public String writePost(){
-        return "writepost";
+        return "posts/new";
     }
 
     /**
@@ -99,7 +99,7 @@ public class PostsController {
     @RequestMapping("/post/{id}")
     public String detailPost(@PathVariable long id, Model model) {
         model.addAttribute("post", postService.selectPost(id));
-        return "post";
+        return "posts/show";
     }
 
 
@@ -110,7 +110,7 @@ public class PostsController {
     @RequestMapping("/postlist")
     public String postList(Model model) {
         model.addAttribute("postList", postService.allPosts());
-        return "postlist";
+        return "posts/index";
     }
 
 
@@ -147,7 +147,7 @@ public class PostsController {
     @RequestMapping("/editPost/{id}")
     public String editPostForm(@PathVariable long id, Model model) {
         model.addAttribute("post", postService.selectPost(id));
-        return "editPost";
+        return "posts/edit";
     }
 
 }

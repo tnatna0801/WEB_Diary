@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
+<body layout:fragment="content">
+<a class="btn btn-primary btn-lg" href="/writepost">일기 작성</a>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">제목</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:object="${post}" th:each="post: ${postList}">
+        <td th:text="*{id}" name="id"></td>
+        <td><a th:href="@{|/post/${post.id}|}" th:text="*{title}"></a></td>
+        <td>
+            <button type="button" class="btn btn-secondary" th:attr="onclick=|deletePost('${post.id}')|">delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<script type="javascript">
+    function deletePost(id) {
+        $.ajax({
+            type: 'POST',
+            url: '/deletePost',
+            data: {
+                id: parseInt(id),
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (!result) {
+                    alert('삭제되었습니다.');
+                    location.reload();
+                } else {
+                    alert('삭제할 수 없습니다.');
+                }
+            },
+            error: function () {
+                alert('서버에서 에러 발생');
+
+            },
+        });
+    }
+</script>
+</body>
+</html>
