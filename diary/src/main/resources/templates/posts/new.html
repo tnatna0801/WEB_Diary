@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
+<body layout:fragment="content">
+<form method="POST" th:action="@{/writepost}">
+    <div class="mb-3">
+        <label for="inputTitle" class="form-label">제목</label>
+        <input id="inputTitle" type="text" name="title" class="form-control" placeholder="제목" autocomplete="off"
+               required />
+    </div>
+    <div class="mb-3">
+        <label for="inputWeather" class="form-label">날씨</label>
+        <input id="inputWeather" type="text" name="weather" class="form-control" placeholder="날씨"
+               autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="inputFeeling" class="form-label">기분</label>
+        <input id="inputFeeling" type="text" name="feeling" class="form-control" placeholder="기분"
+               autocomplete="off" />
+    </div>
+    <div class="mb-3">
+        <label for="inputColor" class="form-label">배경색</label>
+        <input id="inputColor" type="color" name="color" class="form-control" placeholder="배경색"
+               autocomplete="off" />
+    </div>
+
+    <div id="editor" class="mb-3"></div>
+    <input type="hidden" id="content" name="content" required />
+
+    <div class="mb-3">
+        <div class="form-check">
+            <input type="radio" class="form-check-input" id="privacy-1" name="privacy" value="public">
+            <label class="form-check-label" for="privacy-1">public</label>
+        </div>
+
+        <div class="form-check">
+            <input type="radio" class="form-check-input" id="privacy-2" name="privacy" value="private">
+            <label class="form-check-label" for="privacy-2">private</label>
+        </div>
+
+        <div class="form-check">
+            <input type="radio" class="form-check-input" id="privacy-3" name="privacy" value="friends">
+            <label class="form-check-label" for="privacy-3">friends</label>
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <button type="submit" class="btn btn-dark btn-large form-control col">저장</button>
+        <button type="button" class="btn btn-secondary btn-large form-control col" onclick="history.back()">Back
+        </button>
+    </div>
+</form>
+<script>
+    const uploadImage = async (blob) => {
+        const formData = new FormData();
+        formData.append('image', blob); // 이미지를 Formdata file로 변경, 'image'가 input name이다.
+        const url = await fetch('/imageUpload', {
+            method: 'POST',
+            body: formData,
+        });
+        return url;
+
+    };
+    const editor = new toastui.Editor({
+        el: document.getElementById('editor'),
+        height: '500px',
+        initialValue: '오늘 어떤 일이 있었나요?',
+        initialEditType: 'wysiwyg',
+        hideModeSwitch: true,
+        placeholder: '일기 내용을 작성해 주세요!',
+        events: {
+            change: function () {
+                console.log(editor.getMarkdown());
+                document.getElementById('content').value = editor.getMarkdown();
+            },
+        },
+        hooks: {
+            addImageBlobHook: async (blob, callback) => {
+                const uploadImageURL = await uploadImage(blob).then(r => r.blob());
+                const url = window.URL.createObjectURL(uploadImageURL);
+                console.log(url);
+                callback(url, 'alt text');
+                return false;
+            },
+        },
+    });
+
+    editor.getMarkdown();
+</script>
+</body>
+</html>

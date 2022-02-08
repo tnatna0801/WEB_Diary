@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
+<body layout:fragment="content">
+<div class="card mb-3" th:object="${post}">
+    <div class="card-body">
+        <h5 class="card-title" th:text="*{title}"></h5>
+        <h6 class="card-subtitle mb-2 text-muted" th:text="*{createDate}"></h6>
+        <p class="card-text">
+            날씨: <b th:text="*{weather}"></b>
+            <br />
+            기분: <b th:text="*{feeling}"></b>
+        </p>
+        <p th:text="*{content}"></p>
+
+        <button type="button" class="btn btn-danger" id="btn_postDel"
+                th:attr="onclick=|deletePost('${post.id}')|">
+            delete
+        </button>
+        <button type="button" class="btn btn-secondary" id="btn_postEdit"
+                th:onclick="'location.href=\''+ @{|/editPost/${post.id}|} + '\''">
+            edit
+        </button>
+    </div>
+</div>
+<div class="card mb-3 p-2 col-6" th:object="${post}">
+    <input type="hidden" id="post_id" name="post_id" th:attr="value=${post.id}">
+
+    <div class="row mb-3">
+        <div class="col-8">
+            <input type="text" id="comment_content" name="comment_content" class="form-control" placeholder="댓글을 남겨주세요."
+                   autocomplete="off" />
+        </div>
+        <div class="col-4">
+            <button type="button" class="btn btn-secondary" id="btn_addcomment" th:onclick="addComment()">등록</button>
+        </div>
+    </div>
+    <div class="form-check">
+        <input type="radio" class="form-check-input" id="privacy-1" name="comment_privacy" value="public">
+        <label class="form-check-label" for="privacy-1">public</label>
+    </div>
+    <div class="form-check">
+        <input type="radio" class="form-check-input" id="privacy-2" name="comment_privacy" value="private">
+        <label class="form-check-label" for="privacy-2">private</label>
+    </div>
+    <div class="form-check">
+        <input type="radio" class="form-check-input" id="privacy-3" name="comment_privacy" value="friends">
+        <label class="form-check-label" for="privacy-3">friends</label>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">댓글</h5>
+        <div id="commentList"></div>
+    </div>
+</div>
+<script>
+    $('#commentList').ready(function () {
+        commentList();
+    });
+
+    function deletePost(id) {
+        console.log(id);
+        $.ajax({
+            type: 'POST',
+            url: '/deletePost',
+            data: {
+                id: parseInt(id),
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (!result) {
+                    alert('삭제되었습니다.');
+                    location.replace('/postlist');
+                } else {
+                    alert('삭제할 수 없습니다.');
+                }
+            },
+            error: function () {
+                alert('서버에서 에러 발생');
+
+            },
+        });
+    }
+
+    function addComment() {
+        const post_id = $('#post_id').val();
+        let content = $('#comment_content').val();
+        let privacy = $('input[name=comment_privacy]').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/addcomment',
+            data: {
+                post_id: post_id,
+                content: content,
+                privacy: privacy,
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result) {
+                    alert('댓글을 등록했습니다.');
+                    const value = $('input[name=\'comment_content\']').val();
+                    $('input[name=\'comment_content\']').val('');
+                    $('input[name=\'comment_content\']').focus();
+                    $('#commentList').append('<div class="content" name="list_content"><p>' + value + '</p></div>');
+                } else {
+                    alert('댓글을 등록할 수 없습니다.');
+                }
+            },
+            error: function () {
+                alert('서버에서 에러 발생');
+
+            },
+        });
+    }
+
+    function commentList() {
+        const post_id = $('#post_id').val();
+        $.ajax({
+            type: 'POST',
+            url: '/comment/list',
+            data: { post_id: post_id },
+            dataType: 'json',
+            success: function (data) {
+                let view = '';
+                $.each(data, function (key, value) {
+
+                    view += '<div class="content" name="list_content"><p>' + value.content + '</p></div>';
+
+                });
+
+                $('#commentList').html(view);
+            },
+        });
+    }
+</script>
+</body>
+</html>
