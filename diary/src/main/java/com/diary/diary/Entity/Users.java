@@ -17,7 +17,7 @@ public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //데이터베이스에 기본키 생성을 위임
-    private Long id;
+    private long id;
 
     @NotNull
     @Column(length = 40)

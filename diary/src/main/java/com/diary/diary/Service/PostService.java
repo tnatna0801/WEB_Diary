@@ -1,9 +1,7 @@
 package com.diary.diary.Service;
 
 import com.diary.diary.DTO.PostValueDTO;
-import com.diary.diary.DTO.UserValueDTO;
 import com.diary.diary.Entity.Post;
-import com.diary.diary.Entity.Users;
 import com.diary.diary.Repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,7 +37,16 @@ public class PostService {
         return list;
     }
 
+    //id로 일기 조회
     public PostValueDTO.PostResponseDto selectPost(long Id){
         return new PostValueDTO.PostResponseDto(postRepo.findById(Id));
+    }
+
+    //일기 업데이트
+    public void updatePost(PostValueDTO.PostRequestDto requestDto) {
+
+            Post post = postRepo.findById(requestDto.getId());
+            post.updateInfo(requestDto);
+            postRepo.save(post);
     }
 }
