@@ -98,12 +98,19 @@
             },
             dataType: 'json',
             success: function (result) {
-                if (result) {
+                if (result>=1) {
                     alert('댓글을 등록했습니다.');
                     const value = $('input[name=\'comment_content\']').val();
                     $('input[name=\'comment_content\']').val('');
                     $('input[name=\'comment_content\']').focus();
-                    $('#commentList').append('<div class="content" name="list_content"><p>' + value + '</p></div>');
+
+                    let view = '<div class="content" name="list_content"><p>';
+                    view += '<input type="hidden" id="comment_id" name="comment_id" th:attr="value=' + result + '">';
+                    view += value;
+                    view += '<input type ="button" name="btn_edit_comment" value="edit" onclick="editComment(' + result + ')"></input>';
+                    view += '<input type="button" name="btn_delete_comment" value="delete" onclick="deleteComment(' + result + ')"></input></p></div>';
+
+                    $('#commentList').append(view);
                 } else {
                     alert('댓글을 등록할 수 없습니다.');
                 }
@@ -126,7 +133,11 @@
                 let view = '';
                 $.each(data, function (key, value) {
 
-                    view += '<div class="content" name="list_content"><p>' + value.content + '</p></div>';
+                    view += '<div class="content" name="list_content"><p>';
+                    view += '<input type="hidden"  name="comment_id" th:attr="value=' + value.id + '">';
+                    view += value.content;
+                    view += '<input type ="button" name="btn_edit_comment" value="edit" onclick="editComment(' + value.id + ')"></input>';
+                    view += '<input type="button" name="btn_delete_comment" value="delete" onclick="deleteComment(' + value.id + ')"></input></p></div>';
 
                 });
 
@@ -134,6 +145,56 @@
             },
         });
     }
+
+    function editComment(comment_id) {
+<!--        $.ajax({-->
+<!--            type: 'POST',-->
+<!--            url: '/comment/edit',-->
+<!--            data: {-->
+<!--                id: parseInt(comment_id),-->
+<!--                content: ,-->
+<!--                privacy: , -->
+<!--                post_id: , -->
+<!--            },-->
+<!--            dataType: 'json',-->
+<!--            success: function (result) {-->
+<!--                if (result) {-->
+<!--                    alert('수정되었습니다.');-->
+<!--                    commentList();-->
+<!--                } else {-->
+<!--                    alert('수정할 수 없습니다.');-->
+<!--                }-->
+<!--            },-->
+<!--            error: function () {-->
+<!--                alert('서버에서 에러 발생');-->
+<!--            },-->
+<!--        });-->
+
+    }
+
+    function deleteComment(comment_id) {
+        $.ajax({
+            type: 'POST',
+            url: '/comment/delete',
+            data: {
+                id: parseInt(comment_id),
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result) {
+                    alert('삭제되었습니다.');
+                    commentList();
+                } else {
+                    alert('삭제할 수 없습니다.');
+                }
+            },
+            error: function () {
+                alert('서버에서 에러 발생');
+
+            },
+        });
+    }
+
 </script>
 </body>
 </html>

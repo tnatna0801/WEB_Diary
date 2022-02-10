@@ -22,13 +22,6 @@ public class CommentsController {
         this.service = service;
     }
 
-//    /**
-//     * 댓글 저장 메소드
-//     * @param  댓글과 공개여부를 담은 객체
-//     * @return 다시 이릭 상세 페이지로 가야하지만
-//     * 어떻게 post id를 가져와야할지 몰라서 임시로 postlist 페이지를 반환하도록함
-//     */
-
     /**
      * 댓글 저장 메소드
      * @param post_id 포스트의 id
@@ -39,7 +32,7 @@ public class CommentsController {
     @PostMapping("/addcomment")
     @JsonProperty
     @ResponseBody
-    public boolean addComment(long post_id, String content, String privacy){
+    public long addComment(long post_id, String content, String privacy){
         return service.addComment(CommentValueDTO.CommentRequestDto.builder()
                 .content(content)
                 .privacy(privacy)
@@ -53,6 +46,19 @@ public class CommentsController {
         return service.selectAllComments(post_id);
     }
 
+    @PostMapping("/comment/delete")
+    @JsonProperty
+    @ResponseBody
+    public boolean deleteComment(long id){
+        return service.deleteComment(id);
+    }
+
+    @PostMapping("/comment/update")
+    @JsonProperty
+    @ResponseBody
+    public boolean updateComment(CommentValueDTO.CommentRequestDto requestDto){
+        return service.updateComment(requestDto);
+    }
 
 
 }

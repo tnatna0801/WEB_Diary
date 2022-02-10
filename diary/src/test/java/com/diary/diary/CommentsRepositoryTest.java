@@ -3,7 +3,9 @@ package com.diary.diary;
 import com.diary.diary.DTO.CommentValueDTO;
 import com.diary.diary.DTO.PostValueDTO;
 import com.diary.diary.Entity.Comments;
+import com.diary.diary.Entity.Post;
 import com.diary.diary.Repository.CommentsRepository;
+import com.diary.diary.Repository.PostRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +15,40 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class CommentsRepositoryTest {
 
     @Autowired
-    CommentsRepository repository;
+    private CommentsRepository repository;
+
+    @Autowired
+    private PostRepository postRepository;
 
     @Test
     public void findByIdTest(){
-        String content = "댓글 작성 테스트";
+
+        String title = "삭제용";
+        String content = "삭제 테스트 중입니다.";
         String privacy = "public";
 
-        CommentValueDTO.CommentRequestDto requestDto = CommentValueDTO.CommentRequestDto.builder()
+        PostValueDTO.PostRequestDto postRequest = PostValueDTO.PostRequestDto.builder()
+                .title(title)
                 .content(content)
                 .privacy(privacy)
                 .build();
 
-        CommentValueDTO.CommentResponseDto comment = new CommentValueDTO.CommentResponseDto(repository.save(requestDto.toEntity()));
-        CommentValueDTO.CommentResponseDto findedComment = new CommentValueDTO.CommentResponseDto(repository.findById(comment.getId()));
+        Post savedPost = postRepository.save(postRequest.toEntity());
 
-        Assertions.assertEquals(comment.getContent(), findedComment.getContent());
+        CommentValueDTO.CommentRequestDto commentRequest = CommentValueDTO.CommentRequestDto.builder()
+                .content("댓글 작성 테스트")
+                .privacy("public")
+                .build();
+
+        CommentValueDTO.CommentResponseDto comment = new CommentValueDTO.CommentResponseDto(repository.save(commentRequest.toEntity(savedPost)));
+        CommentValueDTO.CommentResponseDto findComment = new CommentValueDTO.CommentResponseDto(repository.findById(comment.getId()));
+
+        Assertions.assertEquals(comment.getContent(), findComment.getContent());
+
+    }
+
+    @Test
+    public void existByIdTest(){
 
     }
 }
