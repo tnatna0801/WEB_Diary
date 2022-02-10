@@ -18,15 +18,26 @@ public class CommentsService {
     private final PostRepository postRepo;
 
     //댓글 생성
-    public boolean addComment(CommentValueDTO.CommentRequestDto requestDto){
-        long id = commentsRepo.save(requestDto.toEntity(postRepo.findById(requestDto.getPost_id()))).getId();
-
-        return id >= 1;
+    public long addComment(CommentValueDTO.CommentRequestDto requestDto){
+        return commentsRepo.save(requestDto.toEntity(postRepo.findById(requestDto.getPost_id()))).getId();
     }
 
+    //댓글 수정
+    public boolean updateComment(CommentValueDTO.CommentRequestDto requestDto) {
+        Comments comment = commentsRepo.findById(requestDto.getId());
+        comment.updateInfo(requestDto, comment.getPost());
+
+        String updateComment = commentsRepo.save(comment).getContent();
+
+        return updateComment.equals(requestDto.getContent());
+    }
+
+
+
     //댓글 삭제
-    public void deleteComment(long id){
+    public boolean deleteComment(long id){
         commentsRepo.delete(commentsRepo.findById(id));
+        return !commentsRepo.existsById(id);
     }
 
     //전체 댓글 조회

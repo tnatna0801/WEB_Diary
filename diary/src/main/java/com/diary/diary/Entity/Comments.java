@@ -1,5 +1,6 @@
 package com.diary.diary.Entity;
 
+import com.diary.diary.DTO.CommentValueDTO;
 import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Getter;
@@ -45,12 +46,20 @@ public class Comments {
     @Builder
     public Comments(String content, Date createDate,
                     Date updateDate, String privacy,
-                    Post post
-    ){
+                    Post post){
         this.content = content;
         this.createDate = createDate;
         this.updateDate = updateDate;
         this.privacy = privacy;
         this.post = post;
+    }
+
+    public void updateInfo(CommentValueDTO.CommentRequestDto requestDto, Post post) {
+        this.content = requestDto.getContent();
+        this.createDate = requestDto.getCreateDate();
+        this.updateDate = requestDto.getUpdateDate();
+        this.privacy = requestDto.getPrivacy();
+        this.post = post;
+
     }
 }

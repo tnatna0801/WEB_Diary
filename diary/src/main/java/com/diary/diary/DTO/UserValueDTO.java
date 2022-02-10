@@ -2,10 +2,7 @@ package com.diary.diary.DTO;
 
 import com.diary.diary.Entity.Users;
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,7 +10,7 @@ import java.util.List;
 public class UserValueDTO {
 
     @Getter
-    @Setter
+    @NoArgsConstructor
     public static class UserRequestDto{
 
         @NotNull
