@@ -59,7 +59,9 @@ ex) NullPointerException, IllegalArgumentException
 예외를 적절한 예외로 전환해서 던진다. 두 가지 목적이 있다.
 
 * 의미가 분명해지도록 추상화하는 것
-ex) SQLException을 DuplicateUserIdException로 전환: 새로운 사용자를 등록하려고 시도할 때 아이디가 중복일 때 DB 에러가 발생하면서 SQLException을 발생시킨다. 이대로 밖으로 던져버리면 서비스 계층에서는 왜 발생했는지 쉽게 알 방법이 없으므로 DAO에서 정보를 해석해서 DuplicateUserIdException 같은 예외로 바꿔서 던져주는 것이 좋다.
+
+ex) SQLException을 DuplicateUserIdException로 전환: 새로운 사용자를 등록하려고 시도할 때 아이디가 중복일 때 DB 에러가 발생하면서 SQLException을 발생시킨다. 
+이대로 밖으로 던져버리면 서비스 계층에서는 왜 발생했는지 쉽게 알 방법이 없으므로 DAO에서 정보를 해석해서 DuplicateUserIdException 같은 예외로 바꿔서 던져주는 것이 좋다.
 
 * 예외를 처리하기 쉽고 단순하게 만들기 위해 포장(Wrapping)하는 것
 주로 체크 예외를 언체크 예외인 런타임 예외로 바꾸는 경우에 사용한다. 
@@ -103,7 +105,13 @@ JdbcTemplate 템플릿/콜백 안에서 발생하는 모든 SQLException이 Runt
 DB에 관계없이 자유롭게 사용할 수 없다. 
 
 1. 특정 DB에만 있는 비표준 SQL들을 사용한다면, 다른 DB로 갈아끼울 때 SQL을 한바탕 뒤집어 함
-2. SQLException 하나로 모든 예외가 압축되기 때문에 e.gerErrorCode() 등으로 에러 코드를 확인해야만 정확한 에러를 확인할 수 있다. 그런데 각 DB는 서로 다른 에러 코드를 사용한다.
+2. SQLException 하나로 모든 예외가 압축되기 때문에 e.gerErrorCode() 등으로 에러 코드를 확인해야만 정확한 에러를 확인할 수 있다. 그런데 각 DB는 서로 다른 에러 코드를 사용한다. (=> 데이터 엑세스 기술에 의존적인 코드가 된다.)
+
+```java
+public void add(User user) throws SQLException; //Jdbc api
+public void add(User user) throws PersistentException; //JPA
+public void add(User user) throws HibernateException; //Hibernate
+```
 
 => 2번 문제를 해결하기 위해서 스프링의 JdbcTemplate에서는 최종 예외로 DataAccessException을 두고, 다양한 데이터 액세스 기술을 사용할 때 발생하는 예외들을 추상화해서 DataAccessException 계층구조 안에 정리해놓았다.
 
